@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Blogs</title>
+  <link rel="stylesheet" href="/css/jass.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma-rtl.min.css">
+</head>
+
+<header>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <span class="main">
+            <h1 class="title is-1 has-text-centered">Welcome to the Tech Blog!</h1>
+          <h3 class="title is-3 has-text-centered">Full-Stack Only...</h3>   
+          </span>
+        </a>
+
+  
+  
+   {{#if logged_in}}
+      <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+          <a class="navbar-item" href="/homepage">
+            Home
+          </a>
+
+          <a class="navbar-item" href="/post">
+            Profile
+          </a>
+
+          <a class="navbar-item" href="/profile">
+            Make A Blog
+          </a>
+        </div>
+      </div>
+
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <button class="button" id="logout">
+            Logout
+          </button>
+        </div>
+      </div>
+
+      {{else}}
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button" href="/login" id="login">
+              <strong>Lets get started!</strong>
+            </a>
+          </div>
+        </div>
+      </div>
+      {{/if}}
+    </div>
+  </nav>
+</header>
+
+<body>
+
+    {{{body}}}
+
+  {{#if logged_in}}
+  <script src="/js/logout.js"></script>
+  {{/if}}
+ 
+</body>
+
+</html>
