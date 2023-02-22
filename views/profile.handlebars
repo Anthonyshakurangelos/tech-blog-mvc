@@ -6,7 +6,7 @@
     <section class="section is-small">
       <div class="box">
       
-        <h2 class="title font">Hi, <span id="username">{{name}}</span>! </h2>
+        <h2 class="title font">Hi, <span id="username">{{username}}</span>! </h2>
 
             <div class="title has-text-grey is-2">Let's get Posting!</div>
       
@@ -18,30 +18,66 @@
 
 <div class="container has-text-centered">
   <div class="column is-three-fifths is-offset-one-fifth">
-
     <div class="box">
-        <article class="media">
-          <figure class="media-left">
-            <p class="image is-64x64">
-              <img src="pfp.jpg">
-            </p>
-          </figure>
           <div class="media-content">
             <form class="form post-form">
               <div class="form-group">
-                <textarea class="textarea is-danger" type="text" id="blog-desc" rows="15" placeholder="What's new in Tech?"></textarea>
+      <div class="form-group box-sizing">
+        <label for="blog_title">Blog Title:</label>
+        <input class="form-input" type="text" id="blog_title" blog_title="blog_title" />
+      </div>
+               <textarea class="textarea is-danger" type="text" id="blog-desc" rows="15" placeholder="What's new in Tech?"></textarea>
               </div>
               <div class="form-group">
                 <button class="button" type="submit" id="postBtn">Post</button>  
-                <button class="button" type="submit" id="deleteBtn">Delete</button>  
               </div>
             </form>
-          </div>
-        </article>  
+          </div> 
     </div>
   </div>
 </div>
 
+{{!-- <div class="container has-text-centered">
+  <div class="column is-three-fifths is-offset-one-fifth">
+
+    <div class="box">
+  <div class="media-content">
+    <div class="content">
+      <h3 class="title">
+        Your previous blogs:
+      </h3>
+      <p>
+        <strong>{{blog_title}}</strong> <small>{{username}}</small> <small></small>
+        <br>
+        {{desc}}
+      </p>
+    </div>
+    </div>
+    </div>
+    </div>
+  </div>
+  <div class="media-right">
+    <button class="delete"></button>
+  </div>
+</article> --}}
+
+ {{!-- {{#if blogs.length}} --}}
+  <div class="col-md-6 blog-list">
+    <h3>Current Blogs:</h3>
+
+ {{#each blogs}}
+    <div class="row mb-2">
+      <div class="col-md-8">
+        <h4><a href="/blog/{{blog.id}}">{{blog.blog_title}}</a></h4>
+      </div>
+      <div class="col-md-4">
+        <button class="btn btn-sm btn-danger" data-id="{{blog.id}}">DELETE</button>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  {{!-- {{/if}} --}}
+</div>
 
    
 <script src="/js/profile.js"></script>

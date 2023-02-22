@@ -1,34 +1,63 @@
-<div>
-  {{#each blogs}}
+ </div>
+ {{#each blogs}}
+ <div class="column is-10 is-offset-1">
+  <div class="box">
+  <div class="media-content">
+    <div class="content">
+      <p>
+        <strong>{{blog_title}}</strong><small>@{{user.username}}</small>
+        <br>
+        {{desc}}
+        <br>
+        <small>{{format_date date_created}}</small>
+      </p>
+    </div>
+  </div>
+</div>
+</div>
+    {{/each}}
+
+
+
+  {{!-- {{#each comments as |comment|}} --}}
     <div class="column is-10 is-offset-1">
       <div class="box">
-        <article class="media">
-          <figure class="media-left">
-            <p class="image is-64x64">
-              <img class="is-rounded" src="pfp.jpg">
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong>{{user.username}}user name goes here</strong>
+            <br>
+            {{comments.comment_desc}}user comment goes here
+            <br>
+            {{!-- <small>{{format_date date_created}}</small> --}}
             </p>
-          </figure>
-          <div class="media-content">
-            <div class="content">
-            
-              <p>
-                <strong>{{user.name}}</strong> <small>@{{email}}</small> <small>{{format_date date_created}}</small>
-                <br>
-                {{blogs}}
-              </p>
-
-            </div>
-            <nav class="level is-mobile">
-              <div class="level-left">
-                <a class="level-item">
-                  <span class="icon is-small"><i class="fas fa-heart"></i></span>
-                </a>
-              </div>
-            </nav>
           </div>
-        </article>
-      </div>
+         </div>
+        </div>
+      
+    {{!-- {{/each}} --}}
+       
+    
+  {{#if logged_in}}
+  <form class="new-comment-form" data-blog_id={{id}}>
+  <div class="column is-10 is-offset-1">
+    <div class="box">
+  <div class="media-content">
+    <div class="field">
+      <p class="control">
+        <textarea class="textarea" id="comment-desc" placeholder="Add a comment..."></textarea>
+      </p>
     </div>
-  {{/each}}
+    <div class="field">
+      <p class="control">
+        <button class="button" id="post-comment" type="submit">Post comment</button>
+      </p>
+      </form>
+     </div>
+    </div>
+   </div>
+  </div>
+{{/if}}
 
-</div>
+
+<script src="/js/comment.js"></script>
