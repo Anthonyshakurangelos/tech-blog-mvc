@@ -2,8 +2,13 @@ const router = require('express').Router();
 const withAuth = require('../../utils/auth');
 const { Comment } = require('../../models');
 
-router.get('/', (req,res) => {
-    Comment.findAll({})
+router.get('/comment', withAuth, async (req,res) => {
+
+    Comment.findAll({
+      where: {
+        id: req.params.id
+    }
+    })
     .then(commentData => res.json(commentData))
     .catch(err => {
         console.log(err);
@@ -25,7 +30,7 @@ router.get('/:id', (req, res) => {
 });
 
 
-
+// this needs withAuth
 router.post('/', async (req, res) => {
   try {
     const newComment = await Comment.create({

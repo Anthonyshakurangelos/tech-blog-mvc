@@ -1,6 +1,46 @@
-<div class="text">
-  <p>{{comment.comment_desc}}</p>
-  <p>Created by {{user.username}} on {{format_date date_created}}</p>
-</div>
+ <div>
+{{#each comments}}
+    <div class="column is-10 is-offset-1">
+      <div class="box">
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong>{{user.username}}</strong>
+            <br>
+            {{comment_desc}}
+            <br>
+            <small>{{format_date date_created}}</small>
+            </p>
+          </div>
+         </div>
+        </div>
+    {{/each}}
+    </div>
+    {{!-- {{/if}} --}}
+
+     {{#if logged_in}}
+  <form class="new-comment-form" data-blog_id={{id}}>
+  <div class="column is-10 is-offset-1">
+    <div class="box">
+  <div class="media-content">
+    <div class="field">
+      <p class="control">
+        <textarea class="textarea" id="comment-desc" placeholder="Add a comment..."></textarea>
+      </p>
+    </div>
+    <div class="field">
+      <p class="control">
+        <button class="button" id="post-comment" type="submit">Post comment</button>
+      </p>
+      </form>
+     </div>
+    </div>
+   </div>
+  </div>
+{{/if}}
+
+
+      
+       
 
 <script src="/js/comment.js"></script>

@@ -7,13 +7,14 @@ router.get('/comment', async (req,res) => {
 const commentData = await Comment.findAll({
   include: [
     {
-    model: User
+    model: User, Blog,
+    attributes: ['username'],
     },
   ],
 })
    const comments = commentData.map((comment) => comment.get({ plain: true}));
-   res.render('homepage', {
-    ...comments, 
+   res.render('comment', {
+    comments, 
     logged_in: req.session.logged_in 
    });
   }catch (err) {
@@ -43,7 +44,7 @@ router.get('/homepage', async (req, res) => {
   }
 });
 
-router.get('/blog/:id', async (req, res) => {
+router.get('/blogs/:id', async (req, res) => {
   try {
     const blogData = await Blog.findByPk(req.params.id, {
       include: [
