@@ -61,22 +61,30 @@
   </div>
 </article> --}}
 
- {{!-- {{#if blogs.length}} --}}
-  <div class="col-md-6 blog-list">
+ {{#if blogs.length}}
+  <div class="column is-10 is-offset-1">
+  <div class="box">
+  <div class="media-content">
+    <div class="content">
     <h3>Current Blogs:</h3>
 
- {{#each blogs}}
-    <div class="row mb-2">
-      <div class="col-md-8">
-        <h4><a href="/blog/{{blog.id}}">{{blog.blog_title}}</a></h4>
-      </div>
-      <div class="col-md-4">
-        <button class="btn btn-sm btn-danger" data-id="{{blog.id}}">DELETE</button>
+    {{#each blogs}}
+      <p>
+        <strong><a href="/blog{{blog.id}}">{{blog_title}}</a></strong><small>@{{user.username}}</small>
+        <br>
+        {{desc}}
+        <br>
+        <small>{{format_date date_created}}</small>
+        <br>
+
+ {{!-- {{#each blogs}} --}}
+    
+        <button class="btn btn-sm btn-danger" type="submit" id="delete-blog" data-id="{{blog.id}}" >DELETE</button>
       </div>
     </div>
     {{/each}}
   </div>
-  {{!-- {{/if}} --}}
+  {{/if}}
 </div>
 
    

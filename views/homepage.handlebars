@@ -1,18 +1,18 @@
  </div>
- {{#each blogs}}
+ {{#each blogs as |blog|}}
  <div class="column is-10 is-offset-1">
   <div class="box">
   <div class="media-content">
     <div class="content">
       <p>
-        <strong>{{blog_title}}</strong><small>@{{user.username}}</small>
+        <strong><a href="/blog{{blog.id}}">{{blog_title}}</a></strong><small>@{{user.username}}</small>      
         <br>
         {{desc}}
         <br>
         <small>{{format_date date_created}}</small>
         <br>
         <nav>
-        <a href="/comment"><button class="button" id="commentBtn" type="submit">Comment</button></a>
+        <a href="/comment{{comment.comment.id}}"><button class="button" id="commentBtn" type="submit">Comment</button></a>
         </nav>
       </p>
     </div>

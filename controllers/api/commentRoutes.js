@@ -1,12 +1,16 @@
 const router = require('express').Router();
 const withAuth = require('../../utils/auth');
 const { Comment } = require('../../models');
+const { Blog } = require('../../models');
+const { User } = require('../../models');
 
-router.get('/comment', withAuth, async (req,res) => {
+router.get('/', withAuth, async (req,res) => {
 
     Comment.findAll({
       where: {
-        id: req.params.id
+        // user_Id: req.session.user_Id,
+        id: req.params.id,
+        // blog_id: req.params.id
     }
     })
     .then(commentData => res.json(commentData))
@@ -30,12 +34,17 @@ router.get('/:id', (req, res) => {
 });
 
 
-// this needs withAuth
-router.post('/', async (req, res) => {
+
+router.post('/', withAuth ,async (req, res) => {
   try {
     const newComment = await Comment.create({
       ...req.body,
-      userId: req.session.userId,
+      // id: req.params.id,
+      user_Id: req.session.user_Id,
+      // comment_desc: req.body.comment_desc,
+      // blog_id: req.params.id,
+                // user_id: req.session.user_id
+      include: [{ model: User,  }],
     });
     res.json(newComment);
   } catch (err) {
@@ -45,16 +54,17 @@ router.post('/', async (req, res) => {
 
 
 
-router.delete('/:id', withAuth, async (req, res) => {
+
+router.delete('/:id',   async (req, res) => {
   try {
     const commentData = await Comment.destroy({
       where: {
         id: req.params.id,
-        user_id: req.session.user_id,
+        // user_id: req.session.user_id,
       },
     });
     if (!commentData) {
-      res.status(404).json({ message: 'No blog found with this id!' });
+      res.status(404).json({ message: 'No comment found with this id!' });
       return;
     }
     res.status(200).json(commentData);
@@ -62,4 +72,7 @@ router.delete('/:id', withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 module.exports = router;
+
+

@@ -4,6 +4,28 @@ const { User } = require('../../models');
 const withAuth = require('../../utils/auth');
 // include User
 // don't forget to add withAuth back in 
+router.get('/blog/:id', async (req, res) => {
+  try {
+    const blogData = await Blog.findByPk({
+      include: [
+        {
+          model: User, Blog,
+          attributes: ['username'],
+        },
+      ],
+    });
+
+    const blogs = blogData.map((blog) => blog.get({ plain: true }));
+    res.render('blog', { 
+      blogs, 
+      logged_in: req.session.logged_in 
+    });
+  } catch (err) {
+    res.status(500).json(err);
+    
+  }
+});
+
 router.post('/', withAuth, async (req, res) => {
   try {
     const newBlog = await Blog.create({
@@ -17,6 +39,7 @@ router.post('/', withAuth, async (req, res) => {
     res.status(400).json(err);
   }
 });
+
 router.put('/:id', withAuth, async (req, res) => {
   try {
     const newBlog = await Blog.update({
@@ -30,7 +53,7 @@ router.put('/:id', withAuth, async (req, res) => {
   }
 });
 // this one also needs withAuth
-router.delete('/:id', withAuth, async (req, res) => {
+router.delete('/:id',  withAuth, async (req, res) => {
   try {
     const blogData = await Blog.destroy({
       where: {

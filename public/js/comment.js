@@ -1,41 +1,47 @@
 const commentFormHandler = async function(event) {
-    event.preventDefault();
-    const blog_id = document.getElementById('.new-comment-form').dataset.blog_id;
-    const comment_desc = document.getElementById('#comment_desc').value.trim();
-
-    if (comment_desc) {
-      await fetch('/api/comments', {
-        method: 'POST',
-        body: JSON.stringify({
-          blog_id,
-          comment_desc
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-
-      // const delButtonHandler = async (event) => {
-      //   if (event.target.hasAttribute('data-id')) {
-      //     const id = event.target.getAttribute('data-id');
+  event.preventDefault();
       
-      //     const response = await fetch(`/api/blogs/${id}`, {
-      //       method: 'DELETE',
-      //     });
+      const blogForm = document.getElementById('new-comment-form');
+      const blog_id = blogForm.getAttribute("data-blog_id");
       
-      //     if (response.ok) {
-      //       document.location.replace('/profile');
-      //     } else {
-      //       alert('Failed to delete blog');
-      //     }
-      //   }
-      // };
-      
-      document.location.reload();
-    }
-  };
-  document.querySelector('.new-comment-form').addEventListener('submit', commentFormHandler);
-  document.querySelector('#post-comment').addEventListener('submit', commentFormHandler);
-  document.querySelector('#delete-comment').addEventListener('submit', delButtonHandler);
+  const comment_desc = document.getElementById('comment-desc').value.trim();
   
+  if (comment_desc) {
     
+    await fetch('/api/comments', {
+      method: 'POST',
+      body: JSON.stringify({
+        //  blog_id,
+        comment_desc
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    // document.location.reload();
+  }
+};
+
+const delButtonHandler = async (event) => {
+  if (event.target.hasAttribute('comment-id')) {
+    const id = event.target.getAttribute('comment-id');
+
+    const response = await fetch(`/api/comments/${id}`, {
+      method: 'DELETE',
+    });
+
+    if (response.ok) {
+      // document.location.reload();
+    } else {
+      alert('Delete Failed');
+    }
+  }
+};
+
+document
+  .getElementById('new-comment-form')
+  .addEventListener('submit', commentFormHandler);
+
+  document
+  .getElementById('comment-id', 'delete-comment')
+  .addEventListener('submit', delButtonHandler);
